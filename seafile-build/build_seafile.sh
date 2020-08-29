@@ -122,7 +122,7 @@ install_thirdparty()
 		pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 	fi
 
-	python3 -m pip install --user --upgrade pip setuptools wheel --no-warn-script-location
+	python3 -m pip install --user --upgrade pip setuptools wheel
 	mkdir -p $THIRDPARTY_DIR
 
 	cp -f $BUILD_DIR/seahub/requirements.txt $THIRDPARTY_DIR

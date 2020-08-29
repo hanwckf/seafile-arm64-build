@@ -7,13 +7,6 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 apt_arg='-y -o Dpkg::Progress-Fancy="0"'
 
-cat <<EOF > ./usr/sbin/policy-rc.d
-#!/bin/sh
-exit 101
-EOF
-
-chmod +x ./usr/sbin/policy-rc.d
-
 apt $apt_arg update && apt $apt_arg upgrade -y
 apt $apt_arg install -y \
 	build-essential \
