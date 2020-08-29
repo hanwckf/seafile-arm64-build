@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PWD=$(pwd)
 BUILD_DIR=$PWD/build
@@ -36,7 +36,7 @@ extract_src()
 
 build_and_install_libevhtp()
 {
-	echo "\e[93mBuild libevhtp\e[39m\n"
+	echo -e "\e[93mBuild libevhtp\e[39m\n"
 	( set -x
 		cd $BUILD_DIR/libevhtp;
 		cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF . ;
@@ -49,7 +49,7 @@ build_and_install_libevhtp()
 
 export_pkg_config()
 {
-	echo "\e[93mExport PKG_CONFIG_PATH for seafile-server, libsearpc and ccnet-server\e[39m\n"
+	echo -e "\e[93mExport PKG_CONFIG_PATH for seafile-server, libsearpc and ccnet-server\e[39m\n"
 
 	export PKG_CONFIG_PATH=$BUILD_DIR/ccnet-server:$PKG_CONFIG_PATH
 	export PKG_CONFIG_PATH=$BUILD_DIR/libsearpc:$PKG_CONFIG_PATH
@@ -59,7 +59,7 @@ export_pkg_config()
 
 build_libsearpc()
 {
-	echo "\e[93mBuild libsearpc\e[39m\n"
+	echo -e "\e[93mBuild libsearpc\e[39m\n"
 
 	( set -x
 		cd $BUILD_DIR/libsearpc 
@@ -71,7 +71,7 @@ build_libsearpc()
 
 build_ccnet()
 {
-	echo "\e[93mBuild ccnet-server\e[39m\n"
+	echo -e "\e[93mBuild ccnet-server\e[39m\n"
 
 	( set -x
 		cd $BUILD_DIR/ccnet-server
@@ -83,7 +83,7 @@ build_ccnet()
 
 build_seafile_server()
 {
-	echo "\e[93mBuild seafile-server\e[39m\n"
+	echo -e "\e[93mBuild seafile-server\e[39m\n"
 
 	( set -x
 		cd $BUILD_DIR/seafile-server
@@ -95,7 +95,7 @@ build_seafile_server()
 
 build_seafobj()
 {
-	echo "\e[93mBuild seafobj\e[39m\n"
+	echo -e "\e[93mBuild seafobj\e[39m\n"
 
 	( set -x
 		cd $BUILD_DIR/seafobj
@@ -105,7 +105,7 @@ build_seafobj()
 
 build_seafdav()
 {
-	echo "\e[93mBuild seafdav\e[39m\n"
+	echo -e "\e[93mBuild seafdav\e[39m\n"
 
 	( set -x
 		cd $BUILD_DIR/seafdav
@@ -115,7 +115,7 @@ build_seafdav()
 
 install_thirdparty()
 {
-	echo "\e[93mInstall Seafile thirdparty requirements\e[39m\n"
+	echo -e "\e[93mInstall Seafile thirdparty requirements\e[39m\n"
 
 	if [ -z "$TRAVIS" ]; then
 		pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
@@ -137,7 +137,7 @@ install_thirdparty()
 
 build_seahub()
 {
-	echo "\e[93mBuild seahub\e[39m\n"
+	echo -e "\e[93mBuild seahub\e[39m\n"
 	
 	export PATH=$THIRDPARTY_DIR:$PATH
 	export PATH=$THIRDPARTY_DIR/django/bin:$PATH
@@ -151,7 +151,7 @@ build_seahub()
 
 copy_pkg_source()
 {
-	echo "\e[93mCopy sources to $PKG_SRC_DIR/R$SEAFILE_VERSION \e[39m\n"
+	echo -e "\e[93mCopy sources to $PKG_SRC_DIR/R$SEAFILE_VERSION \e[39m\n"
 
 	mkdir -p $PKG_SRC_DIR/R$SEAFILE_VERSION
 
@@ -165,7 +165,7 @@ copy_pkg_source()
 
 build_seafile()
 {
-  echo "\e[93mBuild Seafile server\e[39m\n"
+  echo -e "\e[93mBuild Seafile server\e[39m\n"
 
   mkdir -p $OUTPUT_DIR
   ( set -x
