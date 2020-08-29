@@ -17,4 +17,15 @@ script:
 
 after_script:
 - ls -lh seafile-build/output
+deploy:
+  provider: releases
+  api_key:
+    secure: GYB1ttIow2fHniSkjoiBFB4G6MzeNhyIPV+qI/9KoIhzLlda2962RwEGbovv8tlTkZD7Y2/NbfcOnoURnXYzgoNP+7deYYtrW9AMbl9LuDNFD+s08FWvVgxM6UGDu+SplN8SFjcgAuuCzoYdOAHKM4UjkHulIgXDE8rlcBWZuQ7dmJdq2BBGKnsDPkMqlVxDJGTBSl0Ge4ubECPLtqhf6Pf1HotCVStfTffW0USMQQ+fnUhHTCp1mDx9Ept7C+YJ66NIBiVHGdOfPvHV7XergJJKPtxOw8p/P3SG37znkaZ3CBN+zafcWzuVr2IHJqiGjkIvaIJzvMBrAxuRA0o88XJsxt+D8js575avaev9AqK2VlgUaa7qZI2+VbzxJdXd7rRHc6mZf06ETwHPMeudzMymAjc9GUEXzDvZRZsEp1UsK6BKIxOKE4TnJz9PyTlHqQLG+CnM5K8cPYq57Ye38UTrpHURbmFcyhQKKJp/Hc7BrXnWVbTFAey/8dTjN8vjok7mAtw2jrS5oMLi3JdOFBjbyIjTpohKpwVGCvGsRonRbk39JkYN7lWnz/AgciRyjflQ4cmmULg3HTHa5RXhtrety2qqPAGuNzQgbGYUonl+bWdpb5rdYNPVxI1w7kMlqihWv6Rrk1ureNNQnIB/fZX3x/4KZyw+CGtrz8Udr7k=
+  overwrite: true
+  file_glob: true
+  file: seafile-build/output/*.tar.gz
+  on:
+    repo: hanwckf/seafile-aarch64-build
+    tags: true
+  skip_cleanup: 'true'
 
