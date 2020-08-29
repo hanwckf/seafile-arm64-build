@@ -13,7 +13,7 @@ script:
   -v $(pwd)/seafile-build:/opt
   -e TRAVIS="$TRAVIS"
   -it multiarch/ubuntu-core:arm64-bionic
-  /bin/sh -c '/opt/ubuntu-bionic-prepare.sh && /opt/build_seafile.sh'
+  /bin/sh -c 'cd /opt && ./ubuntu-bionic-prepare.sh && ./build_seafile.sh'
 
 after_script:
 - ls -lh seafile-build/output
