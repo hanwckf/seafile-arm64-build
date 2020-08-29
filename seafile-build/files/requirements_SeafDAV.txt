@@ -1,0 +1,13 @@
+#
+# SeafDAV
+#
+defusedxml
+# Jinja2 : possible to install by own OS repository packages by "apt install python3-jinja2" rather than by pip
+jinja2
+jsmin
+python-pam
+PyYAML
+# six : already installed by Seahub requirements
+lxml
+# sqlalchemy : possible to install by own OS repository packages by "apt install python3-sqlalchemy" rather than by pip
+sqlalchemy

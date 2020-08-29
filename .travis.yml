@@ -1,0 +1,20 @@
+os: linux
+dist: bionic
+language: minimal
+services:
+  - docker
+
+before_install:
+- docker run --rm --privileged multiarch/qemu-user-static:register
+
+script:
+- docker run --rm \
+  -v $(pwd)/qemu-aarch64:/usr/bin/qemu-aarch64 \
+  -v $(pwd)/seafile-build:/opt \
+  -e TRAVIS="$TRAVIS" \
+  -it multiarch/ubuntu-core:arm64-bionic \
+  /bin/sh -c '/opt/ubuntu-bionic-prepare.sh && /opt/build_seafile.sh'
+
+after_script:
+- ls -lh seafile-build/output
+
