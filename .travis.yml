@@ -21,7 +21,7 @@ script:
   /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
 
 after_script:
-- [ -n "$TARBALL_SUFFIX" ] && ./rename.sh $TARBALL_SUFFIX
+- '[ -n "$TARBALL_SUFFIX" ] && ./rename.sh $TARBALL_SUFFIX'
 - ls -lh seafile-build/output
 
 deploy:
