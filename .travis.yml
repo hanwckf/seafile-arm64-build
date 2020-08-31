@@ -4,6 +4,11 @@ language: minimal
 services:
   - docker
 
+env:
+  jobs:
+  - DOCKER_BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic INIT_SCRIPT=ubuntu-bionic-prepare.sh
+  - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.12 INIT_SCRIPT=alpine-prepare.sh TARBALL_SUFFIX="alpine"
+
 before_install:
 - docker run --rm --privileged multiarch/qemu-user-static:register
 
@@ -12,11 +17,13 @@ script:
   -v $(pwd)/qemu-aarch64:/usr/bin/qemu-aarch64
   -v $(pwd)/seafile-build:/opt
   -e TRAVIS="$TRAVIS"
-  -it multiarch/ubuntu-core:arm64-bionic
-  /bin/sh -c 'cd /opt && ./ubuntu-bionic-prepare.sh && ./build_seafile.sh'
+  -it ${DOCKER_BASE_IMAGE}
+  /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
 
 after_script:
+- [ -n "$TARBALL_SUFFIX" ] && ./rename.sh $TARBALL_SUFFIX
 - ls -lh seafile-build/output
+
 deploy:
   provider: releases
   api_key:
