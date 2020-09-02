@@ -9,10 +9,9 @@
  openpyxl
  qrcode
  django-formtools
-@@ -18,3 +18,6 @@ pillow
+@@ -18,3 +18,5 @@ pillow
  pyjwt
  pycryptodome
  requests_oauthlib
 +pylibmc
 +django-pylibmc
-+django-simple-captcha
