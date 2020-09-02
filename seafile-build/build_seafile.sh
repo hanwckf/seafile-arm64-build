@@ -126,11 +126,10 @@ install_thirdparty()
 	mkdir -p $THIRDPARTY_DIR
 
 	cp -f $BUILD_DIR/seahub/requirements.txt $THIRDPARTY_DIR
-	cat files/requirements_SeafDAV.txt >> $THIRDPARTY_DIR/requirements.txt
+	cat $BUILD_DIR/seafdav/requirements.txt >> $THIRDPARTY_DIR/requirements.txt
 
 	python3 -m pip install -r $THIRDPARTY_DIR/requirements.txt --target $THIRDPARTY_DIR --no-cache --upgrade
-	
-	rm $THIRDPARTY_DIR/requirements.txt
+
 	rm -rf $(find $THIRDPARTY_DIR -name "__pycache__")
 }
 

@@ -7,7 +7,6 @@ services:
 env:
   jobs:
   - DOCKER_BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic INIT_SCRIPT=ubuntu-bionic-prepare.sh
-  - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.12 INIT_SCRIPT=alpine-prepare.sh TARBALL_SUFFIX="alpine"
 
 before_install:
 - docker run --rm --privileged multiarch/qemu-user-static:register

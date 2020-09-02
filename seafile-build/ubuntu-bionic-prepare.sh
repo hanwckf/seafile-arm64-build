@@ -15,6 +15,7 @@ apt $apt_arg install -y \
 	sudo \
 	intltool \
 	libarchive-dev \
+	libmemcached-dev \
 	libcurl4-openssl-dev \
 	libevent-dev \
 	libfuse-dev \
@@ -29,6 +30,7 @@ apt $apt_arg install -y \
 	libtool \
 	libxml2-dev \
 	libxslt-dev \
+	zlib1g-dev \
 	python3-lxml \
 	python3-setuptools \
 	uuid-dev \

@@ -1,4 +1,3 @@
-index 106d9d2..b709fa1 100644
 --- a/seahub/requirements.txt
 +++ b/seahub/requirements.txt
 @@ -6,7 +6,7 @@ django-post_office==3.3.0
@@ -10,3 +9,10 @@ index 106d9d2..b709fa1 100644
  openpyxl
  qrcode
  django-formtools
+@@ -18,3 +18,6 @@ pillow
+ pyjwt
+ pycryptodome
+ requests_oauthlib
++pylibmc
++django-pylibmc
++django-simple-captcha
