@@ -7,6 +7,7 @@ services:
 env:
   jobs:
   - DOCKER_BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic INIT_SCRIPT=ubuntu-bionic-prepare.sh
+  - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.9 INIT_SCRIPT=alpine-prepare.sh PIP_IGNORE="lxml" TARBALL_SUFFIX=alpine
 
 before_install:
 - docker run --rm --privileged multiarch/qemu-user-static:register
@@ -16,6 +17,7 @@ script:
   -v $(pwd)/qemu-aarch64:/usr/bin/qemu-aarch64
   -v $(pwd)/seafile-build:/opt
   -e TRAVIS="$TRAVIS"
+  -e SEAFILE_IGNORE_PIP="$PIP_IGNORE"
   -it ${DOCKER_BASE_IMAGE}
   /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
 
