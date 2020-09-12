@@ -62,7 +62,7 @@ build_libsearpc()
 	echo -e "\e[93mBuild libsearpc\e[39m\n"
 
 	( set -x
-		cd $BUILD_DIR/libsearpc 
+		cd $BUILD_DIR/libsearpc
 		./autogen.sh
 		./configure
 		make dist
@@ -118,8 +118,8 @@ install_thirdparty()
 	echo -e "\e[93mInstall Seafile thirdparty requirements\e[39m\n"
 
 	if [ -z "$TRAVIS" ]; then
-		pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
-		pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+		python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+		python3 -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 	fi
 
 	python3 -m pip install --user --upgrade pip setuptools wheel
@@ -127,6 +127,12 @@ install_thirdparty()
 
 	cp -f $BUILD_DIR/seahub/requirements.txt $THIRDPARTY_DIR
 	cat $BUILD_DIR/seafdav/requirements.txt >> $THIRDPARTY_DIR/requirements.txt
+
+	if [ -n "$SEAFILE_IGNORE_PIP" ]; then
+		for n in $SEAFILE_IGNORE_PIP; do
+			sed -i "/\<${n}\>/d" $THIRDPARTY_DIR/requirements.txt
+		done
+	fi
 
 	python3 -m pip install -r $THIRDPARTY_DIR/requirements.txt --target $THIRDPARTY_DIR --no-cache --upgrade
 
@@ -137,7 +143,7 @@ install_thirdparty()
 build_seahub()
 {
 	echo -e "\e[93mBuild seahub\e[39m\n"
-	
+
 	export PATH=$THIRDPARTY_DIR:$PATH
 	export PATH=$THIRDPARTY_DIR/django/bin:$PATH
 	export PYTHONPATH=$THIRDPARTY_DIR
@@ -194,4 +200,3 @@ install_thirdparty
 build_seahub
 copy_pkg_source
 build_seafile
-
