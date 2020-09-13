@@ -21,7 +21,7 @@ script:
   -it ${DOCKER_BASE_IMAGE}
   /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
 
-after_script:
+after_success:
 - '[ -n "$TARBALL_SUFFIX" ] && ./rename.sh $TARBALL_SUFFIX'
 - ls -lh seafile-build/output
 
