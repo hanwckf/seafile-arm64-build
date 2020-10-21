@@ -8,7 +8,7 @@ OUTPUT_DIR=$PWD/output
 THIRDPARTY_DIR=$BUILD_DIR/seahub_thirdparty
 PKG_SRC_DIR=$BUILD_DIR/seafile-src
 
-SEAFILE_VERSION=7.1.4
+SEAFILE_VERSION=7.1.5
 SEAFILE_SRC="libsearpc libevhtp ccnet-server seafdav seafile-server seafobj seahub"
 
 MYSQL_CONFIG_PATH=/usr/bin/mysql_config
@@ -29,7 +29,7 @@ extract_src()
 
 	if [ -d $SRC_DIR/$SEAFILE_VERSION/patches ]; then
 		for p in $(ls "$SRC_DIR"/$SEAFILE_VERSION/patches/*.patch); do
-			patch -N -p1 -d $BUILD_DIR < $p
+			patch -r - -N -p1 -d $BUILD_DIR < $p
 		done
 	fi
 }

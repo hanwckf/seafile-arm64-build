@@ -1,0 +1,22 @@
+--- a/seafile-server/scripts/build/build-server.py
++++ b/seafile-server/scripts/build/build-server.py
+@@ -823,7 +823,7 @@ def create_tarball(tarball_name):
+     excludes_list = [ '--exclude=%s' % pattern for pattern in ignored_patterns ]
+     excludes = ' '.join(excludes_list)
+ 
+-    tar_cmd = 'tar czf %(tarball_name)s %(versioned_serverdir)s %(excludes)s' \
++    tar_cmd = 'tar czf %(tarball_name)s %(excludes)s %(versioned_serverdir)s' \
+               % dict(tarball_name=tarball_name,
+                      versioned_serverdir=versioned_serverdir,
+                      excludes=excludes)
+@@ -844,10 +844,6 @@ def gen_tarball():
+     # 32-bit: seafile-server_1.2.2_i386.tar.gz
+     version = conf[CONF_VERSION]
+     arch = os.uname()[-1].replace('_', '-')
+-    if 'arm' in platform.machine():
+-        arch = 'pi'
+-    elif arch != 'x86-64':
+-        arch = 'i386'
+ 
+     dbg = ''
+     if conf[CONF_NO_STRIP]:

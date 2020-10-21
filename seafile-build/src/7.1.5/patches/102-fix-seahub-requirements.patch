@@ -1,0 +1,27 @@
+--- a/seahub/requirements.txt
++++ b/seahub/requirements.txt
+@@ -1,7 +1,7 @@
+ Django==1.11.29
+ future
+ captcha
+-django-statici18n
++django-statici18n==1.9.0
+ django-post_office==3.3.0
+ django-webpack_loader
+ gunicorn
+@@ -10,11 +10,13 @@ django-picklefield==2.1.1
+ openpyxl
+ qrcode
+ django-formtools
+-django-simple-captcha
+-djangorestframework
++django-simple-captcha==0.5.12
++djangorestframework==3.11.2
+ python-dateutil
+ requests
+ pillow
+ pyjwt
+ pycryptodome
+ requests_oauthlib
++pylibmc
++django-pylibmc

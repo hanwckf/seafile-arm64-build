@@ -10,8 +10,9 @@ apk add --no-progress \
 	gcc g++ make git cmake sudo intltool sqlite-dev py3-pip zlib-dev \
 	libarchive-dev curl-dev glib libtool vala libxml2 libmemcached-dev \
 	libevent-dev oniguruma-dev fuse-dev jansson-dev mariadb-dev \
-	openssl-dev libxslt-dev util-linux-dev py3-setuptools \
-	py3-lxml pkgconfig patch autoconf automake gzip python3-dev \
-	openldap-dev bsd-compat-headers
+	openssl-dev libxslt-dev util-linux-dev py3-setuptools py3-lxml \
+	pkgconfig patch autoconf automake gzip python3-dev openldap-dev \
+	bsd-compat-headers jpeg-dev tiff-dev freetype-dev libwebp-dev
 
 ln -sf /usr/bin/python3 /usr/bin/python
+

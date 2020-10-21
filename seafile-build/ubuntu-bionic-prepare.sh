@@ -35,5 +35,9 @@ apt $apt_arg install -y \
 	python3-setuptools \
 	uuid-dev \
 	valac \
-	python3-pip
+	python3-pip \
+	libjpeg-dev \
+	libtiff5-dev \
+	libfreetype6-dev \
+	libwebp-dev
 
