@@ -1,0 +1,17 @@
+--- a/seafile-server/scripts/setup-seafile.sh
++++ b/seafile-server/scripts/setup-seafile.sh
+@@ -366,10 +366,10 @@ function validate_params() {
+     if [[ "$ip_or_domain" == "" ]]; then
+         ip_or_domain=${SERVER_IP:-`hostname -i`}
+     fi
+-    if [[ "$ip_or_domain" != "" && ! ${ip_or_domain} =~ ^[^.].+\..+[^.]$ ]]; then
+-        echo "Invalid ip or domain param"
+-        err_and_quit;
+-    fi
++#    if [[ "$ip_or_domain" != "" && ! ${ip_or_domain} =~ ^[^.].+\..+[^.]$ ]]; then
++#        echo "Invalid ip or domain param"
++#        err_and_quit;
++#    fi
+ 
+     # fileserver_port default 8082
+     if [[ "${fileserver_port}" == "" ]]; then
