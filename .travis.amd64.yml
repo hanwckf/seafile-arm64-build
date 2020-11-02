@@ -1,8 +1,5 @@
 os: linux
 dist: bionic
-arch: arm64-graviton2
-group: edge
-virt: lxd
 language: minimal
 services:
   - docker
@@ -12,12 +9,16 @@ env:
   - DOCKER_BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic INIT_SCRIPT=ubuntu-bionic-prepare.sh
   - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.9 INIT_SCRIPT=alpine-prepare.sh PIP_IGNORE="lxml" TARBALL_SUFFIX=alpine
 
+before_install:
+- docker run --rm --privileged multiarch/qemu-user-static:register
+
 script:
 - docker run --rm
+  -v $(pwd)/qemu-aarch64:/usr/bin/qemu-aarch64
   -v $(pwd)/seafile-build:/opt
   -e TRAVIS="$TRAVIS"
   -e SEAFILE_IGNORE_PIP="$PIP_IGNORE"
-  ${DOCKER_BASE_IMAGE}
+  -it ${DOCKER_BASE_IMAGE}
   /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
 
 after_success:
@@ -32,7 +33,7 @@ deploy:
   file_glob: true
   file: seafile-build/output/*.tar.gz
   on:
-    repo: hanwckf/seafile-arm64-build
+    repo: hanwckf/seafile-amd64-build
     tags: true
   skip_cleanup: 'true'
 
