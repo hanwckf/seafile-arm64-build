@@ -1,0 +1,22 @@
+--- a/seahub_thirdparty/PIL/ImageFont.py
++++ b/seahub_thirdparty/PIL/ImageFont.py
+@@ -32,6 +32,7 @@ from io import BytesIO
+ 
+ from . import Image
+ from ._util import isDirectory, isPath
++from . import _imagingft as core
+ 
+ LAYOUT_BASIC = 0
+ LAYOUT_RAQM = 1
+@@ -43,11 +44,6 @@ class _imagingft_not_installed:
+         raise ImportError("The _imagingft C module is not installed")
+ 
+ 
+-try:
+-    from . import _imagingft as core
+-except ImportError:
+-    core = _imagingft_not_installed()
+-
+ 
+ # FIXME: add support for pilfont2 format (see FontFile.py)
+ 
