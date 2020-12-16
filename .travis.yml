@@ -1,33 +1,24 @@
 os: linux
 dist: bionic
-arch: arm64-graviton2
-group: edge
-virt: lxd
 language: minimal
 services:
-  - docker
-
+- docker
 env:
   jobs:
   - DOCKER_BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic INIT_SCRIPT=ubuntu-bionic-prepare.sh
-  - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.9 INIT_SCRIPT=alpine-prepare.sh PIP_IGNORE="lxml" TARBALL_SUFFIX=alpine
-
+  - DOCKER_BASE_IMAGE=multiarch/alpine:arm64-v3.9 INIT_SCRIPT=alpine-prepare.sh PIP_IGNORE="lxml"
+    TARBALL_SUFFIX=alpine
+before_install:
+- docker run --rm --privileged multiarch/qemu-user-static:register
 script:
-- docker run --rm
-  -v $(pwd)/seafile-build:/opt
-  -e TRAVIS="$TRAVIS"
-  -e SEAFILE_IGNORE_PIP="$PIP_IGNORE"
-  ${DOCKER_BASE_IMAGE}
+- docker run --rm -v $(pwd)/qemu-aarch64:/usr/bin/qemu-aarch64 -v $(pwd)/seafile-build:/opt
+  -e TRAVIS="$TRAVIS" -e SEAFILE_IGNORE_PIP="$PIP_IGNORE" -it ${DOCKER_BASE_IMAGE}
   /bin/sh -c "cd /opt && ./${INIT_SCRIPT} && ./build_seafile.sh"
-
 after_success:
 - '[ -n "$TARBALL_SUFFIX" ] && ./rename.sh $TARBALL_SUFFIX'
 - ls -lh seafile-build/output
-
 deploy:
   provider: releases
-  api_key:
-    secure: GYB1ttIow2fHniSkjoiBFB4G6MzeNhyIPV+qI/9KoIhzLlda2962RwEGbovv8tlTkZD7Y2/NbfcOnoURnXYzgoNP+7deYYtrW9AMbl9LuDNFD+s08FWvVgxM6UGDu+SplN8SFjcgAuuCzoYdOAHKM4UjkHulIgXDE8rlcBWZuQ7dmJdq2BBGKnsDPkMqlVxDJGTBSl0Ge4ubECPLtqhf6Pf1HotCVStfTffW0USMQQ+fnUhHTCp1mDx9Ept7C+YJ66NIBiVHGdOfPvHV7XergJJKPtxOw8p/P3SG37znkaZ3CBN+zafcWzuVr2IHJqiGjkIvaIJzvMBrAxuRA0o88XJsxt+D8js575avaev9AqK2VlgUaa7qZI2+VbzxJdXd7rRHc6mZf06ETwHPMeudzMymAjc9GUEXzDvZRZsEp1UsK6BKIxOKE4TnJz9PyTlHqQLG+CnM5K8cPYq57Ye38UTrpHURbmFcyhQKKJp/Hc7BrXnWVbTFAey/8dTjN8vjok7mAtw2jrS5oMLi3JdOFBjbyIjTpohKpwVGCvGsRonRbk39JkYN7lWnz/AgciRyjflQ4cmmULg3HTHa5RXhtrety2qqPAGuNzQgbGYUonl+bWdpb5rdYNPVxI1w7kMlqihWv6Rrk1ureNNQnIB/fZX3x/4KZyw+CGtrz8Udr7k=
   overwrite: true
   file_glob: true
   file: seafile-build/output/*.tar.gz
@@ -35,4 +26,5 @@ deploy:
     repo: hanwckf/seafile-arm64-build
     tags: true
   skip_cleanup: 'true'
-
+  api_key:
+    secure: bhudbSdNNYhQF/7khiioK5QGXTRGPINRS1ZN0nInZEETvb2j6mQUXXOFk2VMXurYLPsDppANDwH/zFvwO2jVH8sYvQJ+1iM/TXxHibAhEVQj9vMrMlHpRRyWRa/19Wt/lrHoyvYJ1qmDixkwKdyIK0mR8YEV/uvRq82qG/kaj3fTcpm4RcRehaZLUzRHHvxyk4xZb/V57kB56G+17sWHtVfTWdKWzhxn2qS51qjf7ru262snK8MlH04U6UZjHcf399G8IlKImcJ/2+ZfhsdR8f1lWr5MH6ezT0/OOETBR85Qo4DQ97eVvP6VgexwntlZD6l+UK51IO//HaJt066ExzkNhqvK47hoqOU2sV8YqWIKalB5igw0Pn3f3O3hS0fnnB7LglNz8K5OiXsaFHAewiU2rKbeVXsuOZ1MqG4WbwaU3xg0aoAhb33ySHv6DkRe4bIsxygBiCqumrSVOGEBZdS4R0bLUrpYRjPTObAg2ApHhUpWNE15+s7xTyZHuEhsM6COj0eNdp2s5t1FB15kihA6QhuGqLYo12siY35jRHjREjDcTlGr3Wdwv91y+Yl05w4cUL5dzAlbbBg9kI4xtRqooEbVt+d66OBMAB5LVqrf0EGZOCTHhbZ+K6f7ZjGxh7Hd6t/YF+kgIX8//Sxft0Q4tn+gTh8aPdnm8+70tWY=
