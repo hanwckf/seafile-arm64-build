@@ -168,15 +168,6 @@ copy_pkg_source()
 	cp $BUILD_DIR/seafdav/seafdav.tar.gz $PKG_SRC_DIR/R$SEAFILE_VERSION
 }
 
-run_fixup()
-{
-	if [ -d $SRC_DIR/$SEAFILE_VERSION/fixup ]; then
-		for p in $(ls "$SRC_DIR"/$SEAFILE_VERSION/fixup/*.patch); do
-			patch -r - -N -p1 -d $BUILD_DIR < $p
-		done
-	fi
-}
-
 build_seafile()
 {
   echo -e "\e[93mBuild Seafile server\e[39m\n"
@@ -207,6 +198,5 @@ build_seafobj
 build_seafdav
 install_thirdparty
 build_seahub
-run_fixup
 copy_pkg_source
 build_seafile

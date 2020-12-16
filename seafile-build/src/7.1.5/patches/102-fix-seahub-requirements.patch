@@ -19,8 +19,7 @@
 +djangorestframework==3.11.2
  python-dateutil
  requests
--pillow
-+pillow==8.0.1
+ pillow
  pyjwt
  pycryptodome
  requests_oauthlib
